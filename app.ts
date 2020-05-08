@@ -11,13 +11,13 @@ app.use(cors());
 
 const PUBLIC_FOLDER = process.env.FOLDER || '/var/lib/gallery/';
 
-app.use(express.static(path.join(__dirname, PUBLIC_FOLDER)));
+app.use(express.static(PUBLIC_FOLDER));
 
 app.get('/', function (req, res) {
     console.debug(req.protocol + '://' + req.get('host') + req.originalUrl);
     res.header('Access-Control-Allow-Origin', '*');
 
-    let dir = req.query.path ? path.join(__dirname, PUBLIC_FOLDER, 'original', req.query.path) : path.join(__dirname, PUBLIC_FOLDER, 'original');
+    let dir = req.query.path ? path.join(PUBLIC_FOLDER, 'original', req.query.path) : path.join(PUBLIC_FOLDER, 'original');
     res.send(fs.readdirSync(dir));
 });
 
